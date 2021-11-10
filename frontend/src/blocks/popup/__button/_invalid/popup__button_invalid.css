@@ -1,0 +1,12 @@
+.popup__button_invalid {
+  opacity: 0.2;
+  background-color: white;
+  color: black;
+  border: 1px black solid;
+}
+.popup__button_invalid:hover {
+  opacity: 0.2;
+  background-color: white;
+  color: black;
+  border: 1px black solid;
+}

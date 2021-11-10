@@ -1,0 +1,6 @@
+.header__container {
+  height: 22px;
+  display: flex;
+  margin-top: 6px;
+  flex-direction: row;
+}

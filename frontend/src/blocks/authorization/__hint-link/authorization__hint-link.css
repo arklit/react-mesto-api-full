@@ -1,0 +1,9 @@
+.authorization__hint-link{
+    color: #fff;
+    text-decoration: none;
+    transition: .2s linear;
+    margin-left: 5px;
+}
+.authorization__hint-link:hover{
+    opacity: 0.6;
+}

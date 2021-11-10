@@ -1,0 +1,10 @@
+.element__photo {
+  width: 282px;
+  height: 282px;
+  background-size: cover;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0px 0px;
+  z-index: 1;
+  margin-top: 0;
+  cursor: pointer;
+}
