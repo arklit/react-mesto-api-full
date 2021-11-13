@@ -40,11 +40,11 @@ function App() {
   }, [loggedIn]);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+    const isLiked = card.likes.some((like) => like === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+        setCards((cardList) => cardList.map((c) => (c._id === card._id ? newCard : c)));
       })
       .catch((err) => {
         console.log(err);
@@ -112,7 +112,6 @@ function App() {
   function handleLogin(email, password) {
     auth.authorize(email, password)
       .then((res) => {
-        localStorage.setItem('token', res.token)
         setLoggedIn(true);
         setUserEmail(email);
         history.push('/')
@@ -122,15 +121,21 @@ function App() {
       })
   }
   function handleSignOut() {
-    localStorage.removeItem('token')
-    setLoggedIn(false);
-    history.push('/sign-in')
+    auth.signOut()
+      .then(() => { 
+        setLoggedIn(false);
+        history.push('/sign-in')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
+
   const handleCheckToken = React.useCallback(() => {
-    auth.checkToken(localStorage.getItem('token'))
+    auth.getContent()
       .then((res) => {
         setLoggedIn(true);
-        setUserEmail(res.data.email);
+        setUserEmail(res.email);
         history.push('/')
       }) 
       .catch((err) => {
@@ -140,10 +145,7 @@ function App() {
   }, [history])
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
       handleCheckToken();
-    }
   }, [handleCheckToken])
 
   function handleEditAvatarClick() {

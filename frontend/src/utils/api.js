@@ -11,9 +11,10 @@ class Api {
     }
 
     changeLikeCardStatus(cardId, isLiked) {
-      return fetch(`${this._url}/cards/likes/${cardId}`, {
+      return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: isLiked ? "PUT" : "DELETE",
         headers: this._headers,
+        credentials: 'include',
       })
       .then(this._getRes)
     }
@@ -21,6 +22,7 @@ class Api {
       return fetch(`${this._url}/cards`, {
         method: "GET",
         headers: this._headers,
+        credentials: 'include',
         })
         .then(this._getRes);
    }
@@ -28,6 +30,7 @@ class Api {
       return fetch(`${this._url}/users/me`, {
         method: "GET",
         headers: this._headers,
+        credentials: 'include',
       })
       .then(this._getRes);
     }
@@ -35,6 +38,7 @@ class Api {
       return fetch(`${this._url}/users/me`, {
         method: "PATCH",
         headers: this._headers,
+        credentials: 'include',
         body: JSON.stringify({
           name: data.name,
           about: data.about
@@ -47,6 +51,7 @@ class Api {
       return fetch(`${this._url}/cards`, {
         method: "POST",
         headers: this._headers,
+        credentials: 'include',
         body: JSON.stringify({
           name: name,
           link: link
@@ -58,29 +63,32 @@ class Api {
     deleteCard(cardId) {
       return fetch(`${this._url}/cards/${cardId}`, {
         method: "DELETE",
-        headers: this._headers
+        headers: this._headers,
+        credentials: 'include',
       })
       .then(this._getRes)
     }
   
-    likeCard(cardId) {
-      return fetch(`${this._url}/cards/likes/${cardId}`, {
-        method: "PUT",
-        headers: this._headers
-      })
-      .then(this._getRes)
-    }
-    removeLike(cardId) {
-      return fetch(`${this._url}/cards/likes/${cardId}`, {
-        method: "DELETE",
-        headers: this._headers
-      })
-      .then(this._getRes)
-    }
+    // likeCard(cardId) {
+    //   return fetch(`${this._url}/cards/likes/${cardId}`, {
+    //     method: "PUT",
+    //     headers: this._headers
+    //   })
+    //   .then(this._getRes)
+    // }
+    // removeLike(cardId) {
+    //   return fetch(`${this._url}/cards/likes/${cardId}`, {
+    //     method: "DELETE",
+    //     headers: this._headers
+    //   })
+    //   .then(this._getRes)
+    // }
+
     updateAvatar(data) {
       return fetch(`${this._url}/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
+        credentials: 'include',
         body: JSON.stringify({
           avatar: data.avatar
         })
@@ -90,10 +98,9 @@ class Api {
 }
 
 const api = new Api({
-    url: `https://mesto.nomoreparties.co/v1/cohort-26`,
+    url: `http://localhost:3001`,
     headers: {
-      authorization: '57774d67-b59e-4768-b818-6c6912b25ddb',
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   });
   export default api
