@@ -19,6 +19,8 @@ const options = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
+    'https://arklit.nomoredomains.rocks',
+    'https://api.arklit.nomoredomains.rocks',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,

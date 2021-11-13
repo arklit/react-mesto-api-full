@@ -98,7 +98,7 @@ class Api {
 }
 
 const api = new Api({
-    url: `http://localhost:3001`,
+    url: `https://api.arklit.nomoredomains.rocks`,
     headers: {
       'Content-Type': 'application/json',
     },
