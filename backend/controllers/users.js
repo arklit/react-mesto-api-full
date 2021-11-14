@@ -36,7 +36,14 @@ const createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  bcrypt.hash(password, 10)
+  User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new ConflictRequestError('Такой пользователь уже существует');
+      } else {
+        return bcrypt.hash(password, 10);
+      }
+    })
     .then((hash) => User.create({
       name,
       about,
@@ -56,8 +63,6 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Переданы некорректные данные при создании пользователя');
-      } else if (err.name === 'MongoError' && err.code === 11000) {
-        throw new ConflictRequestError('Такой пользователь уже существует');
       } else {
         next(err);
       }
